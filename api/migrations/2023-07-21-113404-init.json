@@ -1,0 +1,213 @@
+{
+	"formatVersion": 4,
+	"modifications": [
+		{
+			"modification": "createEntity",
+			"entity": {
+				"name": "User",
+				"unique": {},
+				"indexes": {},
+				"primary": "id",
+				"primaryColumn": "id",
+				"tableName": "user",
+				"eventLog": {
+					"enabled": true
+				},
+				"fields": {
+					"id": {
+						"name": "id",
+						"columnName": "id",
+						"type": "Uuid",
+						"columnType": "uuid",
+						"nullable": false
+					}
+				}
+			}
+		},
+		{
+			"modification": "createEntity",
+			"entity": {
+				"name": "Expense",
+				"unique": {},
+				"indexes": {},
+				"primary": "id",
+				"primaryColumn": "id",
+				"tableName": "expense",
+				"eventLog": {
+					"enabled": true
+				},
+				"fields": {
+					"id": {
+						"name": "id",
+						"columnName": "id",
+						"type": "Uuid",
+						"nullable": true,
+						"columnType": "uuid"
+					}
+				}
+			}
+		},
+		{
+			"modification": "createEntity",
+			"entity": {
+				"name": "Category",
+				"unique": {},
+				"indexes": {},
+				"primary": "id",
+				"primaryColumn": "id",
+				"tableName": "category",
+				"eventLog": {
+					"enabled": true
+				},
+				"fields": {
+					"id": {
+						"name": "id",
+						"columnName": "id",
+						"type": "Uuid",
+						"nullable": true,
+						"columnType": "uuid"
+					}
+				}
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "User",
+			"field": {
+				"name": "personId",
+				"columnName": "person_id",
+				"type": "Uuid",
+				"nullable": true,
+				"columnType": "uuid"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "User",
+			"field": {
+				"name": "name",
+				"columnName": "name",
+				"type": "String",
+				"nullable": true,
+				"columnType": "text"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "User",
+			"field": {
+				"name": "email",
+				"columnName": "email",
+				"type": "String",
+				"nullable": true,
+				"columnType": "text"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "Expense",
+			"field": {
+				"name": "value",
+				"columnName": "value",
+				"type": "Double",
+				"nullable": true,
+				"columnType": "double precision"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "Expense",
+			"field": {
+				"name": "date",
+				"columnName": "date",
+				"type": "Date",
+				"nullable": true,
+				"columnType": "date"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "Category",
+			"field": {
+				"name": "name",
+				"columnName": "name",
+				"type": "String",
+				"nullable": true,
+				"columnType": "text"
+			}
+		},
+		{
+			"modification": "createRelation",
+			"entityName": "Expense",
+			"owningSide": {
+				"type": "ManyHasOne",
+				"name": "category",
+				"target": "Category",
+				"inversedBy": "expenses",
+				"joiningColumn": {
+					"columnName": "category_id",
+					"onDelete": "restrict"
+				},
+				"nullable": true
+			},
+			"inverseSide": {
+				"type": "OneHasMany",
+				"name": "expenses",
+				"target": "Expense",
+				"ownedBy": "category"
+			}
+		},
+		{
+			"modification": "createRelation",
+			"entityName": "Expense",
+			"owningSide": {
+				"type": "ManyHasOne",
+				"name": "user",
+				"target": "User",
+				"inversedBy": "expenses",
+				"joiningColumn": {
+					"columnName": "user_id",
+					"onDelete": "restrict"
+				},
+				"nullable": true
+			},
+			"inverseSide": {
+				"type": "OneHasMany",
+				"name": "expenses",
+				"target": "Expense",
+				"ownedBy": "user"
+			}
+		},
+		{
+			"modification": "createUniqueConstraint",
+			"entityName": "User",
+			"unique": {
+				"fields": [
+					"personId",
+					"email"
+				],
+				"name": "unique_User_personId_email"
+			}
+		},
+		{
+			"modification": "createUniqueConstraint",
+			"entityName": "Expense",
+			"unique": {
+				"fields": [
+					"id"
+				],
+				"name": "unique_Expense_id"
+			}
+		},
+		{
+			"modification": "createUniqueConstraint",
+			"entityName": "Category",
+			"unique": {
+				"fields": [
+					"id"
+				],
+				"name": "unique_Category_id"
+			}
+		}
+	]
+}
